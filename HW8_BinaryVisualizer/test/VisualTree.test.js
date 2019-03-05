@@ -992,7 +992,7 @@ describe('Visual BSTree methods', () => {
 
     });
 
-    describe('Remove node',()=>{
+    describe('Visual BSTree -> Remove',()=>{
         let visTree = new VisualTree();
 
         visTree.insert(8);
@@ -1042,13 +1042,14 @@ describe('Visual BSTree methods', () => {
                 expected
             } = data;
             it(`shoud return flag ${expected} with remove element ${value} in tree in Visual BSTree`, () => {
-                const actual = visTree.find(value);
+                const actual = visTree.remove(value);
                 assert.strictEqual(actual, expected);
                 });
             });
 
         
     });
+
     describe('Visual BSTree -> RGB Method', () => {
         const testData = [{
             red: 255,
@@ -1125,6 +1126,62 @@ describe('Visual BSTree methods', () => {
             it(`shoud return color ${expected} in visual BSTree`, () => {
                 let outStr = RGB2HTML(red,green,blue);
                 assert.deepEqual(outStr, expected);
+            });
+        });
+    });
+
+    describe('Visual BSTree -> getPosition method', () => {
+        let visTree = new VisualTree();
+        let tree = new BinaryTree();
+        tree.insert(8);
+        tree.insert(4);
+        tree.insert(12);
+        tree.insert(2);
+        tree.insert(6);
+        tree.insert(10);
+        tree.insert(14);
+
+        const testData = [{
+            value: 8,
+            expected: [0,0]
+        }, {
+            value: 4,
+            expected: [1,0]
+        }, {
+            value: 12,
+            expected:  [1,1]
+        }, {
+            value: 2,
+            expected:  [2,0]
+        }, {
+            value: 6,
+            expected:  [2,1]
+        }
+        , {
+           value: 10,
+           expected:  [2,2]
+            }
+        , {
+           value: 14,
+           expected:  [2,3]
+            }
+        ];
+
+        testData.forEach(function (data) {
+
+            const {
+                value,
+                expected
+            } = data;
+            it(`shoud return position of element = ${value} in Visual BSTree and return flag`, () => {
+
+                const actual = visTree.getPosition(tree.find(value));
+
+                let arrActual = [];
+                arrActual[0] = actual.generation;
+                arrActual[1] = actual.index;
+
+                assert.deepEqual(arrActual, expected);
             });
         });
     });
